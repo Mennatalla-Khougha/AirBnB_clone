@@ -12,12 +12,15 @@ class BaseModel():
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
     def __str__(self):
+        """Return string representation of the class"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """save the Updated date"""
         self.updated_at = datetime.datetime.now()
         
     def to_dict(self):
+        """Return a dictionary of the class"""
         data_dict = self.__dict__.copy()
         data_dict['created_at'] = data_dict['created_at'].isoformat()
         data_dict['updated_at'] = data_dict['updated_at'].isoformat()
