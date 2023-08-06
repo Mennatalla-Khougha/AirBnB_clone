@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # This is the test suite of the BaseModel class
 
+
 import unittest
 from datetime import datetime
 from time import sleep
@@ -50,3 +51,19 @@ class TestBaseModel_instantiation(unittest.TestCase):
         self.assertIn("'id': '123456'", base_str)
         self.assertIn("'created_at': " + date_repr, base_str)
         self.assertIn("'updated_at': " + date_repr, base_str)
+
+    def test_args(self):
+        base = BaseModel(None)
+        self.assertNotIn(None, base.__dict__.values())
+
+    def test_kwargs(self):
+        date = datetime.today()
+        date_iso = date.isoformat()
+        base = BaseModel(id="345", created_at=date_iso, updated_at=date_iso)
+        self.assertEqual(base.id, "345")
+        self.assertEqual(base.created_at, date)
+        self.assertEqual(base.updated_at, date)
+
+    def test_None_kwargs(self):
+        with self.assertRaises(TypeError):
+            BaseModel(id=None, created_at=None, updated_at=None)
