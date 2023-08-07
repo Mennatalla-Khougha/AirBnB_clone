@@ -2,6 +2,7 @@
 # This is the BaseModel class
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel():
@@ -21,14 +22,16 @@ class BaseModel():
                     pass
                 else:
                     setattr(self, key, value)
+        models.storage.new(self)
 
     def __str__(self):
         """Return string representation of the class"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """save the Updated date"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Return a dictionary of the class"""
