@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """"This class serializes and deserializes JSON file """
 import json
-import models.base_model
+from models.base_model import BaseModel
 
 
 class FileStorage():
@@ -26,12 +26,10 @@ class FileStorage():
     def reload(self):
         """"Deserialization from the JSON file into __objects dictionary."""
         try:
-            with open(self.__file_path, "r") as file:
-                data = json.load(file)
-                for key, obj_data in data.items():
-                    class_name, obj_id = key.split(".")
-                    model_class = getattr(models.base_model, class_name)
-                    obj = model_class(**obj_data)
-                    self.__objects[key] = obj
+            with open(FileStorage.__file_path) as file:
+                objs = json.load(file)
+                for obj in objs.values():
+                    class_name = obj["__class__"]
+                    self.new(eval(class_name)(**obj))
         except FileNotFoundError:
             pass
