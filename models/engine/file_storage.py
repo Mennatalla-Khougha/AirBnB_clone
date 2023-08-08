@@ -29,7 +29,6 @@ class FileStorage():
             with open(self.__file_path, "r") as file:
                 data = json.load(file)
                 for key, obj_data in data.items():
-                    print(f"the key: {key}")
                     class_name, obj_id = key.split(".")
                     model_class = getattr(models.base_model, class_name)
                     obj = model_class(**obj_data)
