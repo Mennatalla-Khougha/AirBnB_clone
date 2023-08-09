@@ -2,11 +2,12 @@
 """This program is for the console"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import shlex
 
 
-allowed_classes = ["BaseModel"]
+allowed_classes = ["BaseModel", "User"]
 
 
 def error(args):
@@ -113,7 +114,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         obj = storage.all()[key]
-        setattr(obj, args[2], args[3])
+        if args[2] in obj.__class__.__dict__.keys():
+            att_type = type(obj.__class__.__dict__[args[2]])
+            obj.__dict__[args[2]] = att_type(args[3])
+        else:
+            obj.__dict__[args[2]] = args[3]
         obj.save()
 
 
