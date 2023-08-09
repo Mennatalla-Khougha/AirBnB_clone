@@ -5,6 +5,7 @@ import models
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
 
 
 class TestFileStorage_instantiation(unittest.TestCase):
@@ -27,7 +28,7 @@ class TestFileStorage_instantiation(unittest.TestCase):
         self.assertEqual(type(models.storage), FileStorage)
 
 
-class TestFileStorage_methods(unittest.TestCase):
+class TestBaseModel_BaseModel(unittest.TestCase):
     """Unittests for testing methods of the FileStorage class."""
 
     @classmethod
@@ -99,3 +100,51 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_reload_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload("HI")
+
+
+class TestUser_methods(unittest.TestCase):
+    """Unittests for testing methods on the User class."""
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "filetest.json")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("filetest.json", "file.json")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
+
+    def test_new(self):
+        user = User()
+        models.storage.new(user)
+        self.assertIn("User." + user.id, models.storage.all().keys())
+        self.assertIn(user, models.storage.all().values())
+
+    def test_new_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.new(User(), "hello")
+
+    def test_save(self):
+        user = User()
+        models.storage.new(user)
+        models.storage.save()
+        with open("file.json", "r") as file:
+            text = file.read()
+            self.assertIn("User." + user.id, text)
+
+    def test_reload(self):
+        user = User()
+        models.storage.new(user)
+        models.storage.save()
+        models.storage.reload()
+        objs = FileStorage._FileStorage__objects
+        self.assertIn("User." + user.id, objs)
