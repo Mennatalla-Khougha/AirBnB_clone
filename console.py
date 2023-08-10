@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """" Prints all string representation of all instances"""
+        """Prints all string representation of all instances"""
         lst = []
         if not arg:
             for value in storage.all().values():
@@ -106,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
         print(lst)
 
     def do_update(self, arg):
-        """" Updates an instance based on the class name and id"""
+        """Updates an instance based on the class name and id"""
         args = shlex.split(arg)
         if error(args):
             return
@@ -145,10 +145,15 @@ class HBNBCommand(cmd.Cmd):
             print(f"*** Unknown syntax: {arg}")
             return
         command = args[1].split("(")
+        if len(args[0]) == 0 and command[0] in methods.keys():
+            print("** class name missing **")
+            return
         if len(command) != 2 or command[0] not in methods.keys():
             print(f"*** Unknown syntax: {arg}")
-        elif args[0] not in allowed_classes or command[1][-1] != ")":
+        elif command[1][-1] != ")":
             print(f"*** Unknown syntax: {arg}")
+        elif args[0] not in allowed_classes and command[0] != "count":
+            print("** class doesn't exist **")
         else:
             command[1] = command[1][:-1]
             mydict = re.search(r"\{(.*?)\}", command[1])
