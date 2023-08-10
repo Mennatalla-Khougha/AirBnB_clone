@@ -175,6 +175,8 @@ class HBNBCommand(cmd.Cmd):
                 input_str = input_str.replace("'", '"')
                 myargs = json.loads(input_str)
                 for key, value in myargs.items():
+                    if type(value) == str and ' ' in value:
+                        value = f'"{value}"'
                     methods[command[0]](f"{para} {key} {value}")
 
     def do_count(self, arg):
