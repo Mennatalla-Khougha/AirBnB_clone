@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """This program is for the console"""
 import cmd
+import re
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -128,6 +130,55 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj.__dict__[args[2]] = args[3]
         obj.save()
+
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid"""
+        methods = {
+            "all": self.do_all,
+            "count": self.do_count,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "update": self.do_update,
+        }
+        args = re.split(r'(?<!\d)\.(?!\d)', arg)
+        if len(args) != 2:
+            print(f"*** Unknown syntax: {arg}")
+            return
+        command = args[1].split("(")
+        if len(command) != 2 or command[0] not in methods.keys():
+            print(f"*** Unknown syntax: {arg}")
+        elif args[0] not in allowed_classes or command[1][-1] != ")":
+            print(f"*** Unknown syntax: {arg}")
+        else:
+            command[1] = command[1][:-1]
+            mydict = re.search(r"\{(.*?)\}", command[1])
+            if mydict is None:
+                split_parts = shlex.split(command[1])
+            else:
+                split_parts = shlex.split(command[1][:mydict.span()[0]])
+            split_parts = [i.strip(",") for i in split_parts]
+            split_parts = [f'"{s}"' if ' ' in s else s for s in split_parts]
+            split_parts = ' '.join(split_parts)
+            if split_parts:
+                para = f"{args[0]} {split_parts}"
+            else:
+                para = args[0]
+            if mydict is None:
+                methods[command[0]](para)
+            else:
+                input_str = command[1][mydict.span()[0]:mydict.span()[1]]
+                input_str = input_str.replace("'", '"')
+                myargs = json.loads(input_str)
+                for key, value in myargs.items():
+                    methods[command[0]](f"{para} {key} {value}")
+
+    def do_count(self, arg):
+        """Prints number of instances of a given class."""
+        count = 0
+        for key in storage.all().keys():
+            if arg in key:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
