@@ -38,4 +38,4 @@ class FileStorage():
                     class_name = obj["__class__"]
                     self.new(eval(class_name)(**obj))
         except FileNotFoundError:
-            pass
+            return
