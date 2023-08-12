@@ -42,6 +42,7 @@ class TestBaseModel_BaseModel(unittest.TestCase):
             os.rename("file.json", "filetest.json")
         except IOError:
             pass
+        self.storage = FileStorage()
 
     @classmethod
     def tearDown(self):
@@ -96,10 +97,11 @@ class TestBaseModel_BaseModel(unittest.TestCase):
         objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + base.id, objs)
 
-    def test_reload_no_file(self):
-        with self.assertRaises(FileNotFoundError):
-            models.storage.reload()
-            raise FileNotFoundError
+    def test_reload_with_no_file(self):
+        try:
+            self.storage.reload()
+        except FileNotFoundError:
+            self.fail("Error raised")
 
     def test_reload_arg(self):
         with self.assertRaises(TypeError):
