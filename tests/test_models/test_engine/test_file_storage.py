@@ -120,3 +120,20 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_reload_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload("Hello")
+
+    def test_save_reload_all_classes(self):
+        objs = []
+        for cls in self.classes:
+            obj = cls()
+            objs.append(obj)
+            models.storage.new(obj)
+            models.storage.save()
+            models.storage._FileStorage__objects = {}
+            models.storage.reload()
+
+        for obj in objs:
+            key = f"{type(obj).__name__}.{obj.id}"
+            reloaded_instance = models.storage.all()[key]
+            self.assertIsInstance(reloaded_instance, obj.__class__)
+            self.assertEqual(reloaded_instance.to_dict(),
+                             obj.to_dict())
