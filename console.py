@@ -30,7 +30,7 @@ def error(args):
         return True
 
     if len(args) < 2:
-        print(" ** instance id missing **")
+        print("** instance id missing **")
         return True
 
     key = f"{args[0]}.{args[1]}"
