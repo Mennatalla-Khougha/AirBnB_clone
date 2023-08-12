@@ -97,6 +97,30 @@ class TestBaseModel_BaseModel(unittest.TestCase):
         objs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + base.id, objs)
 
+    def test_save_reload_all_classes(self):
+        instances = [
+            BaseModel(),
+            User(),
+            State(),
+            City(),
+            Amenity(),
+            Place(),
+            Review()
+        ]
+
+        for instance in instances:
+            self.storage.new(instance)
+            self.storage.save()
+            self.storage._FileStorage__objects = {}
+            self.storage.reload()
+
+        for instance in instances:
+            key = "{}.{}".format(instance.__class__.__name__, instance.id)
+            reloaded_instance = self.storage.all()[key]
+            self.assertIsInstance(reloaded_instance, instance.__class__)
+            self.assertEqual(reloaded_instance.to_dict(),
+                             instance.to_dict())
+
     def test_reload_with_no_file(self):
         try:
             self.storage.reload()
