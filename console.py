@@ -45,16 +45,25 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def do_quit(self, arg):
-        """Exit the program"""
+        """
+Exit the program
+Usage: quit
+"""
         return True
 
     def do_EOF(self, arg):
-        """Exit the program with EOF"""
+        """
+Exit the program with EOF
+Usage: EOF (Ctrl+D)
+"""
         print()
         return True
 
     def do_help(self, arg):
-        """Show help information"""
+        """
+Show help information
+Usage: help <command>
+"""
         super().do_help(arg)
 
     def emptyline(self):
@@ -62,7 +71,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, class_name):
-        """Create a new instance of a given class."""
+        """
+Create a new instance of a given class.
+Usage: create <class name>
+"""
         if not class_name:
             print("** class name missing **")
             return
@@ -74,7 +86,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, arg):
-        """Print string representation on the class"""
+        """
+Print string representation of an object.
+Usage: show <class name> <id>
+"""
         args = arg.split()
         if error(args):
             return
@@ -82,7 +97,10 @@ class HBNBCommand(cmd.Cmd):
         print(storage.all()[key])
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id"""
+        """
+Deletes an instance based on the class name and id
+Usage: destroy <class name> <id>
+"""
         args = arg.split()
         if error(args):
             return
@@ -91,7 +109,10 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances"""
+        """
+Prints all string representation of all instances
+Usage: all <class name> or all
+"""
         lst = []
         if not arg:
             for value in storage.all().values():
@@ -106,7 +127,10 @@ class HBNBCommand(cmd.Cmd):
         print(lst)
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id"""
+        """
+Updates an instance based on the class name and id
+Usage: update <class name> <id> <name> <value>
+"""
         args = shlex.split(arg)
         if error(args):
             return
@@ -180,7 +204,10 @@ class HBNBCommand(cmd.Cmd):
                     methods[command[0]](f"{para} {key} {value}")
 
     def do_count(self, arg):
-        """Prints number of instances of a given class."""
+        """
+Prints number of instances of a given class.
+Usage: count <class name>
+"""
         count = 0
         for key in storage.all().keys():
             if arg in key:

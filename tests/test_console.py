@@ -26,55 +26,65 @@ class TestHBNB_help(unittest.TestCase):
     """Unittests for testing help messages of the HBNB command interpreter."""
 
     def test_quit(self):
-        prompt_help = "Exit the program"
+        prompt_help = ('Exit the program\n'
+                       'Usage: quit')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_EOF(self):
-        prompt_help = "Exit the program with EOF"
+        prompt_help = ('Exit the program with EOF\n'
+                       'Usage: EOF (Ctrl+D)')
+
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_help(self):
-        prompt_help = "Show help information"
+        prompt_help = ('Show help information\n'
+                       'Usage: help <command>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help help"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_create(self):
-        prompt_help = "Create a new instance of a given class."
+        prompt_help = ('Create a new instance of a given class.\n'
+                       'Usage: create <class name>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help create"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_show(self):
-        prompt_help = "Print string representation on the class"
+        prompt_help = ('Print string representation of an object.\n'
+                       'Usage: show <class name> <id>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help show"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_destroy(self):
-        prompt_help = "Deletes an instance based on the class name and id"
+        prompt_help = ('Deletes an instance based on the class name and id\n'
+                       'Usage: destroy <class name> <id>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_all(self):
-        prompt_help = "Prints all string representation of all instances"
+        prompt_help = ('Prints all string representation of all instances\n'
+                       'Usage: all <class name> or all')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help all"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_count(self):
-        prompt_help = "Prints number of instances of a given class."
+        prompt_help = ('Prints number of instances of a given class.\n'
+                       'Usage: count <class name>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help count"))
             self.assertEqual(prompt_help, output.getvalue().strip())
 
     def test_update(self):
-        prompt_help = "Updates an instance based on the class name and id"
+        prompt_help = ('Updates an instance based on the class name and id\n'
+                       'Usage: update <class name> <id> <name> <value>')
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
             self.assertEqual(prompt_help, output.getvalue().strip())
