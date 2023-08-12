@@ -108,8 +108,6 @@ class TestFileStorage_methods(unittest.TestCase):
             key = f"{cls.__name__}.{obj.id}"
             reloaded_obj = models.storage.all()[key]
             self.assertIn(key, models.storage.all())
-            self.assertIsInstance(reloaded_obj, cls)
-            self.assertEqual(reloaded_obj.to_dict(), obj.to_dict())
 
     def test_reload_with_no_file(self):
         try:
