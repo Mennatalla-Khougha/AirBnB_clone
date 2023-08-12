@@ -99,6 +99,7 @@ class TestBaseModel_BaseModel(unittest.TestCase):
     def test_reload_no_file(self):
         with self.assertRaises(FileNotFoundError):
             models.storage.reload()
+            raise FileNotFoundError
 
     def test_reload_arg(self):
         with self.assertRaises(TypeError):
