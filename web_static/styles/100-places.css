@@ -28,10 +28,11 @@
     margin-bottom: 20px;
 }
 
-.places h2 {
+.places article>h2 {
     font-size: 30px;
     text-align: center;
     margin: 0 auto;
+    padding-bottom: 30px;
 }
 
 .price_by_night {
@@ -85,3 +86,60 @@ article .user ,article .description {
     padding: 5px;
 }
 
+.places .amenities {
+    margin-top: 40px;
+}
+
+.places .amenities h2 , .reviews h2{
+    font-size: 16px;
+    border-bottom: #ddd 1px solid;
+    text-align: start;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.pet {
+    background-image: url(../images/icon_pets.png);
+}
+
+.tv {
+    background-image: url(../images/icon_tv.png);
+}
+
+.wifi {
+    background-image: url(../images/icon_wifi.png);
+}
+
+.pet, .tv, .wifi {
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-position: left;
+    background-size: 15px;
+    
+}
+
+.places .amenities ul {
+    list-style: none;
+    padding-left: 15px;
+    margin-bottom: 35px;
+}
+
+.places .amenities li {
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.reviews ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.reviews li h3 {
+    font-size: 14px;
+}
+
+.reviews li p {
+    font-size: 14px;
+}
