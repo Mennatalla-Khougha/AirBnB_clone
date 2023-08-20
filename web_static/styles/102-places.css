@@ -1,0 +1,145 @@
+
+.places {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.places h1 {
+    font-size: 30px;
+    width: 100%;
+}
+
+.places article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: #ff5a5f 1px solid;
+    border-radius: 4px;
+    z-index: -1;
+}
+
+.price_place {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.places h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+
+.price_by_night {
+    color: #ff5a5f;
+    border: #ff5a5f 4px solid;
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.information {
+    height: 80px;
+    border-top: #ddd 1px solid;
+    border-bottom: #ddd 1px solid;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    text-align: center;
+    position: relative;
+}
+
+.max_guest {
+    background-image: url(../images/icon_group.png);
+}
+
+.number_rooms {
+    background-image: url(../images/icon_bed.png);
+}
+
+.number_bathrooms {
+    background-image: url(../images/icon_bath.png);
+}
+
+.max_guest, .number_rooms, .number_bathrooms {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    width: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+article .user ,article .description {
+    margin: 20px;
+    padding: 5px;
+}
+
+.places .amenities {
+    margin-top: 40px;
+}
+
+.places .amenities h2 , .reviews h2{
+    font-size: 16px;
+    border-bottom: #ddd 1px solid;
+    text-align: start;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.pet {
+    background-image: url(../images/icon_pets.png);
+}
+
+.tv {
+    background-image: url(../images/icon_tv.png);
+}
+
+.wifi {
+    background-image: url(../images/icon_wifi.png);
+}
+
+.pet, .tv, .wifi {
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-position: left;
+    background-size: 15px;
+    
+}
+
+.places .amenities ul {
+    list-style: none;
+    padding-left: 15px;
+    margin-bottom: 35px;
+}
+
+.places .amenities li {
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.reviews ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.reviews li h3 {
+    font-size: 14px;
+}
+
+.reviews li p {
+    font-size: 14px;
+}
