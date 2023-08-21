@@ -26,11 +26,11 @@
     justify-content: space-between;
     position: relative;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.places h2 {
+.places .price_place h2 {
     font-size: 30px;
-    text-align: center;
     margin: 0 auto;
 }
 
