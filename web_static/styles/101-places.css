@@ -156,7 +156,7 @@ article .user ,article .description {
 }
 
 @media (max-width: 400px) {
-    .places h2 {
+    .places article>h2 {
       margin-left: 0;
     }
   }
